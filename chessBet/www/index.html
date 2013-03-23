@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>chessBet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="chess bet model">
+    <meta name="keywords" content="chess, bet, bookmakers">
+    <meta name="author" content="Alberto Santini">
+
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="shared/shiny.css" rel="stylesheet"/>
+
+    <script src="./assets/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="shared/shiny.js" type="text/javascript"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="masthead">
+        <h3 class="muted">chessBet - Team events: beating the bookmakers?!</h3>
+    </div>
+
+    <hr>
+
+    <div>
+        <div class="row">
+            <div class="span3">
+                <input type="text" name="playerA1" value="Foisor Cristina Adela" />
+                <pre id="playerA1Profile" class="shiny-text-output"></pre>
+            </div>
+            <div class="span3">
+                <input type="text" name="playerB1" value="Gunina Valentina" />
+                <pre id="playerB1Profile" class="shiny-text-output"></pre>
+            </div>
+            <div class="span3">
+                <pre id="game1Stats" class="shiny-text-output"></pre>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span3">
+                <input type="text" name="playerA2" value="Bulmaga Irina" />
+                <pre id="playerA2Profile" class="shiny-text-output"></pre>
+            </div>
+            <div class="span3">
+                <input type="text" name="playerB2" value="Kosteniuk Alexandra" />
+                <pre id="playerB2Profile" class="shiny-text-output"></pre>
+            </div>
+            <div class="span3">
+                <pre id="game2Stats" class="shiny-text-output"></pre>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span3">
+                <input type="text" name="playerA3" value="L'Ami Alina" />
+                <pre id="playerA3Profile" class="shiny-text-output"></pre>
+            </div>
+            <div class="span3">
+                <input type="text" name="playerB3" value="Galliamova Alisa" />
+                <pre id="playerB3Profile" class="shiny-text-output"></pre>
+            </div>
+            <div class="span3">
+                <pre id="game3Stats" class="shiny-text-output"></pre>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span3">
+                <input type="text" name="playerA4" value="Voicu-Jagodzinsky Carmen" />
+                <pre id="playerA4Profile" class="shiny-text-output"></pre>
+            </div>
+            <div class="span3">
+                <input type="text" name="playerB4" value="Girya Olga" />
+                <pre id="playerB4Profile" class="shiny-text-output"></pre>
+            </div>
+            <div class="span3">
+                <pre id="game4Stats" class="shiny-text-output"></pre>
+            </div>
+        </div>
+
+        <pre id="teamProbs" class="shiny-text-output"></pre>
+    </div>
+
+    <hr>
+
+    <div class="footer">
+        <p>
+        <a href="http://en.chessbase.com/Home/TabId/211/PostId/4009158/team-events-beating-the-bookmakers-150313.aspx">Peter Zhdanov's post reference</a>
+        </p>
+    </div>
+
+</body>
+</html>
