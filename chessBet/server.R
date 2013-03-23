@@ -14,9 +14,9 @@ getProb <- function(score, winPerc, drawPerc) {
 
     win <- winPerc * x
     draw <- (score - win) * 2
-    lost <- 1 - win - draw
+    loss <- 1 - win - draw
 
-    c(win, draw, lost)
+    c(win, draw, loss)
 }
 
 printProfile <- function(card) {
@@ -28,11 +28,17 @@ printProfile <- function(card) {
 }
 
 printStats <- function(probs) {
+    if (probs[4] == 1) {
+        cat("Probs. for white player ")
+    } else {
+        cat("Probs. for black player")
+    }
+    cat("\n")
     cat("Win :", format(probs[1], nsmall=2))
     cat("\n")
     cat("Draw:", format(probs[2], nsmall=2))
     cat("\n")
-    cat("Lost:", format(probs[3], nsmall=2))
+    cat("Loss:", format(probs[3], nsmall=2))
 }
 
 getIntegerfromFactor <- function(f) {
@@ -78,15 +84,15 @@ getPlayersStats <- function(card1, card2) {
     table <- readHTMLTable(tableNodes[[6]])
     whiteWin <- getIntegerfromFactor(table[2, ])
     whiteDraw <- getIntegerfromFactor(table[3, ])
-    whiteLost <- getIntegerfromFactor(table[4, ])
+    whiteLoss <- getIntegerfromFactor(table[4, ])
 
     table <- readHTMLTable(tableNodes[[7]])
     blackWin <- getIntegerfromFactor(table[2, ])
     blackDraw <- getIntegerfromFactor(table[3, ])
-    blackLost <- getIntegerfromFactor(table[4, ])
+    blackLoss <- getIntegerfromFactor(table[4, ])
 
-    whiteTotal <- whiteWin + whiteDraw + whiteLost
-    blackTotal <- blackWin + blackDraw + blackLost
+    whiteTotal <- whiteWin + whiteDraw + whiteLoss
+    blackTotal <- blackWin + blackDraw + blackLoss
 
     whiteWinPerc <- whiteWin / whiteTotal
     whiteDrawPerc <- whiteDraw / whiteTotal
@@ -105,7 +111,7 @@ getPlayersStats <- function(card1, card2) {
 
     probs <- if (weakerPlayerColumn == 1) whiteProbs else blackProbs
 
-    probs
+    c(probs, weakerPlayerColumn)
 }
 
 getTeamProbs <- function(gamesProbs) {
@@ -119,18 +125,27 @@ getTeamProbs <- function(gamesProbs) {
     teamWins <- results[teamResults > 2, ]
     teamDraws <- results[teamResults == 2, ]
 
+    probs <- apply(gamesProbs, 1, function(p) {
+        if (p[4] == 1) {
+            c(p[1], p[2], p[3], p[4])
+        } else {
+            c(p[3], p[2], p[1], p[4])
+        }
+    })
+    probs <- t(probs)
+
     teamWinProb = sum(apply(teamWins, 1, function(outcomes) {
-        gamesProbs[1, outcomes[1]] *
-        gamesProbs[2, outcomes[2]] *
-        gamesProbs[3, outcomes[3]] *
-        gamesProbs[4, outcomes[4]]
+        probs[1, outcomes[1]] *
+        probs[2, outcomes[2]] *
+        probs[3, outcomes[3]] *
+        probs[4, outcomes[4]]
     }))
 
     teamDrawProb = sum(apply(teamDraws, 1, function(outcomes) {
-        gamesProbs[1, outcomes[1]] *
-        gamesProbs[2, outcomes[2]] *
-        gamesProbs[3, outcomes[3]] *
-        gamesProbs[4, outcomes[4]]
+        probs[1, outcomes[1]] *
+        probs[2, outcomes[2]] *
+        probs[3, outcomes[3]] *
+        probs[4, outcomes[4]]
     }))
 
     c(teamWinProb, teamDrawProb)
@@ -231,7 +246,7 @@ shinyServer(function(input, output) {
         cat(
             "Win Prob. for team A", teamProbs[1], "/",
             "Draw Prob. for team A", teamProbs[2], "/",
-            "Lost Prob. for team A", 1 - teamProbs[1] - teamProbs[2]
+            "Loss Prob. for team A", 1 - teamProbs[1] - teamProbs[2]
         )
         cat("\n")
         cat(

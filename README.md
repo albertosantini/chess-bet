@@ -22,3 +22,10 @@ Notes
 The first time the application is loaded with the players used in the article,
 the results are displayed after a few seconds and the user is not aware the
 client is waiting a response. Please, wait.
+
+Todo
+====
+
+- Add validation for the input fields to allow blank games.
+
+- Add rating and stats games inputs to insert players not in FIDE database.
