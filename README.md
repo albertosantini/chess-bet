@@ -30,4 +30,4 @@ Todo
 
 - Add rating and stats games inputs to insert players not in FIDE database.
 
-- Remember the latest players typed between the sessions.
+- Save the latest players typed in the local storage.
