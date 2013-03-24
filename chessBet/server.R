@@ -205,7 +205,7 @@ shinyServer(function(input, output) {
     })
 
     output$game1SideProb <- renderPrint({
-        if (game1Stats()[1]) {
+        if (game1Stats()[4] == 1) {
             cat("Probs. for white player (w/d/l)")
         } else {
             cat("Probs. for black player (w/d/l)")
@@ -244,7 +244,7 @@ shinyServer(function(input, output) {
     })
 
     output$game2SideProb <- renderPrint({
-        if (game2Stats()[1]) {
+        if (game2Stats()[4] == 1) {
             cat("Probs. for white player (w/d/l)")
         } else {
             cat("Probs. for black player (w/d/l)")
@@ -283,7 +283,7 @@ shinyServer(function(input, output) {
     })
 
     output$game3SideProb <- renderPrint({
-        if (game3Stats()[1]) {
+        if (game3Stats()[4] == 1) {
             cat("Probs. for white player (w/d/l)")
         } else {
             cat("Probs. for black player (w/d/l)")
@@ -322,7 +322,7 @@ shinyServer(function(input, output) {
     })
 
     output$game4SideProb <- renderPrint({
-        if (game4Stats()[1]) {
+        if (game4Stats()[4] == 1) {
             cat("Probs. for white player (w/d/l)")
         } else {
             cat("Probs. for black player (w/d/l)")
