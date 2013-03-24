@@ -16,13 +16,6 @@ Then, with the working directory set to project folder, type in R console:
 
     runApp("chessBet")
 
-Notes
-=====
-
-The first time the application is loaded with the players used in the article,
-the results are displayed after a few seconds and the user is not aware the
-client is waiting a response. Please, wait.
-
 Todo
 ====
 

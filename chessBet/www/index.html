@@ -34,64 +34,52 @@
 
     <hr>
 
-    <div>
-        <div class="row">
-            <div class="span3">
-                <input type="text" name="playerA1" value="Foisor Cristina Adela" />
-                <pre id="playerA1Profile" class="shiny-text-output"></pre>
-            </div>
-            <div class="span3">
-                <input type="text" name="playerB1" value="Gunina Valentina" />
-                <pre id="playerB1Profile" class="shiny-text-output"></pre>
-            </div>
-            <div class="span3">
-                <pre id="game1Stats" class="shiny-text-output"></pre>
-            </div>
-        </div>
+    <div id="game1"></div>
+    <div id="game2"></div>
+    <div id="game3"></div>
+    <div id="game4"></div>
 
-        <div class="row">
-            <div class="span3">
-                <input type="text" name="playerA2" value="Bulmaga Irina" />
-                <pre id="playerA2Profile" class="shiny-text-output"></pre>
-            </div>
-            <div class="span3">
-                <input type="text" name="playerB2" value="Kosteniuk Alexandra" />
-                <pre id="playerB2Profile" class="shiny-text-output"></pre>
-            </div>
-            <div class="span3">
-                <pre id="game2Stats" class="shiny-text-output"></pre>
-            </div>
-        </div>
+    <hr>
 
-        <div class="row">
-            <div class="span3">
-                <input type="text" name="playerA3" value="L'Ami Alina" />
-                <pre id="playerA3Profile" class="shiny-text-output"></pre>
-            </div>
-            <div class="span3">
-                <input type="text" name="playerB3" value="Galliamova Alisa" />
-                <pre id="playerB3Profile" class="shiny-text-output"></pre>
-            </div>
-            <div class="span3">
-                <pre id="game3Stats" class="shiny-text-output"></pre>
-            </div>
+    <div class="row">
+        <div class="span3">
+            <form class="form-inline">
+                <label>Win Prob. for team A</label>
+                <label id="teamAWinProb"
+                    class="shiny-text-output badge badge-success pull-right">
+                    Loading...
+                </label><br>
+                <label>Draw Prob. for team A</label>
+                <label id="teamADrawProb"
+                    class="shiny-text-output badge badge-warning  pull-right">
+                    Loading...
+                </label><br>
+                <label>Loss Prob. for team A</label>
+                <label id="teamALossProb"
+                    class="shiny-text-output badge badge-important pull-right">
+                    Loading...
+                </label><br>
+            </form>
         </div>
-
-        <div class="row">
-            <div class="span3">
-                <input type="text" name="playerA4" value="Voicu-Jagodzinsky Carmen" />
-                <pre id="playerA4Profile" class="shiny-text-output"></pre>
-            </div>
-            <div class="span3">
-                <input type="text" name="playerB4" value="Girya Olga" />
-                <pre id="playerB4Profile" class="shiny-text-output"></pre>
-            </div>
-            <div class="span3">
-                <pre id="game4Stats" class="shiny-text-output"></pre>
-            </div>
+        <div class="span3">
+            <form class="form-inline">
+                <label><strong>Win Odds for team A</strong></label>
+                <label id="teamAWinOdds"
+                    class="shiny-text-output badge badge-success pull-right">
+                    Loading...
+                </label><br>
+                <label><strong>Draw Odds</strong></label>
+                <label id="teamDrawOdds"
+                    class="shiny-text-output badge badge-warning pull-right">
+                    Loading...
+                </label><br>
+                <label><strong>Win Odds for team B</strong></label>
+                <label id="teamBWinOdds"
+                    class="shiny-text-output badge badge-success pull-right">
+                    Loading...
+                </label><br>
+            </form>
         </div>
-
-        <pre id="teamProbs" class="shiny-text-output"></pre>
     </div>
 
     <hr>
@@ -101,6 +89,61 @@
         <a href="http://en.chessbase.com/Home/TabId/211/PostId/4009158/team-events-beating-the-bookmakers-150313.aspx">Peter Zhdanov's post reference</a>
         </p>
     </div>
+
+<script type="text/x-template" id="profiles-and-game-probs">
+<div class="row">
+    <div class="span4">
+        <form class="form-inline">
+            <input type="text" name="<%= playerA %>"
+                value="<%= playerAValue %>" />
+            <span id="<%= profileARating %>"
+                class="shiny-text-output badge badge-info">Loading...
+            </span>
+            <br>
+            <span id="<%= profileACard %>"
+                class="shiny-text-output label">Loading...
+            </span>
+            <span id="<%= profileAPlayer %>"
+                class="shiny-text-output label">Loading...
+            </span>
+        </form>
+    </div>
+    <div class="span4">
+        <form class="form-inline">
+            <input type="text" name="<%= playerB %>"
+                value="<%= playerBValue %>" />
+            <span id="<%= profileBRating %>"
+                class="shiny-text-output badge badge-info">Loading...
+            </span>
+            <br>
+            <span id="<%= profileBCard %>"
+                class="shiny-text-output label">Loading...
+            </span>
+            <span id="<%= profileBPlayer %>"
+                class="shiny-text-output label">Loading...
+            </span>
+        </form>
+    </div>
+    <div class="span4">
+        <span id="<%= gameSideProb %>"
+            class="shiny-text-output label">Loading...
+        </span>
+        <br>
+        <span id="<%= gameWinProb %>"
+            class="shiny-text-output badge badge-success">Loading...
+        </span>
+        <span id="<%= gameDrawProb %>"
+            class="shiny-text-output badge badge-warning">Loading...
+        </span>
+        <span id="<%= gameLossProb %>"
+            class="shiny-text-output badge badge-important">Loading...
+        </span>
+    </div>
+</div>
+</script>
+
+<script src="./assets/js/lodash-1.0.1.min.js" type="text/javascript"></script>
+<script src="js/profilesAndGameStats.js" type="text/javascript"></script>
 
 </body>
 </html>
