@@ -351,14 +351,14 @@ shinyServer(function(input, output) {
     })
 
     output$teamAWinOdds <- renderText({
-        format(100 / (teamProbs()[1] * 100), digits=3, nsmall=1)
+        format(100 / (teamProbs()[1] * 100), digits=3, nsmall=2)
     })
     output$teamDrawOdds <- renderText({
-        format(100 / (teamProbs()[2] * 100), digits=3, nsmall=1)
+        format(100 / (teamProbs()[2] * 100), digits=3, nsmall=2)
     })
     output$teamBWinOdds <- renderText({
         format(100 / ((1 - teamProbs()[1] - teamProbs()[2]) * 100),
-            digits=3, nsmall=1)
+            digits=3, nsmall=2)
     })
 
 })
