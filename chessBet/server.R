@@ -182,161 +182,90 @@ shinyServer(function(input, output) {
         getTeamProbs(gamesProbs)
     })
 
-# Game 1
+    output_names <- c(
+        "profileA1",
+        "profileB1",
+        "profileA2",
+        "profileB2",
+        "profileA3",
+        "profileB3",
+        "profileA4",
+        "profileB4"
+    )
+    reactive_names <- c(
+        "game1PlayerAProfile",
+        "game1PlayerBProfile",
+        "game2PlayerAProfile",
+        "game2PlayerBProfile",
+        "game3PlayerAProfile",
+        "game3PlayerBProfile",
+        "game4PlayerAProfile",
+        "game4PlayerBProfile"
+    )
 
-    output$profileA1Card <- renderText({
-        game1PlayerAProfile()$card
-    })
-    output$profileA1Player <- renderText({
-        game1PlayerAProfile()$player
-    })
-    output$profileA1Rating <- renderText({
-        game1PlayerAProfile()$rating
-    })
+    for (out_name in output_names) {
+        local({
+            my_out_name <- out_name
+            info_names <- c("Card", "Player", "Rating")
+            for (info_name in info_names) {
+                local({
+                    my_info_name <- info_name
+                    complete_out_name <- paste(my_out_name, my_info_name,
+                                            sep = "")
 
-    output$profileB1Card <- renderText({
-        game1PlayerBProfile()$card
-    })
-    output$profileB1Player <- renderText({
-        game1PlayerBProfile()$player
-    })
-    output$profileB1Rating <- renderText({
-        game1PlayerBProfile()$rating
-    })
+                    output[[complete_out_name]] <<- renderText({
+                        my_profile <- get(reactive_names[
+                            which(output_names == my_out_name)])()
+                        my_profile[[tolower(my_info_name)]]
+                    })
+                })
+            }
+        })
+    }
 
-    output$game1SideProb <- renderPrint({
-        if (game1Stats()[4] == 1) {
-            cat("Probs. for white player (w/d/l)")
-        } else {
-            cat("Probs. for black player (w/d/l)")
-        }
-    })
-    output$game1WinProb <- renderText({
-        format(game1Stats()[1], digits=3, nsmall=3)
-    })
-    output$game1DrawProb <- renderText({
-        format(game1Stats()[2], digits=3, nsmall=3)
-    })
-    output$game1LossProb <- renderText({
-        format(game1Stats()[3], digits=3, nsmall=3)
-    })
+    output_games <- c(
+        "game1",
+        "game2",
+        "game3",
+        "game4"
+    )
+    reactive_stats <- c(
+        "game1Stats",
+        "game2Stats",
+        "game3Stats",
+        "game4Stats"
+    )
 
-# Game 2
+    for (out_name in output_games) {
+        local({
+            my_out_name <- out_name
+            info_names <- c("WinProb", "DrawProb", "LossProb")
+            for (info_name in info_names) {
+                local({
+                    my_info_name <- info_name
+                    complete_out_name <- paste(my_out_name, my_info_name,
+                                            sep = "")
 
-    output$profileA2Card <- renderText({
-        game2PlayerAProfile()$card
-    })
-    output$profileA2Player <- renderText({
-        game2PlayerAProfile()$player
-    })
-    output$profileA2Rating <- renderText({
-        game2PlayerAProfile()$rating
-    })
+                    output[[complete_out_name]] <<- renderText({
+                        my_probs <- get(reactive_stats[
+                            which(output_games == my_out_name)])()
+                        format(my_probs[which(info_names == my_info_name)],
+                            digits=3, nsmall=3)
+                    })
+                })
+            }
 
-    output$profileB2Card <- renderText({
-        game2PlayerBProfile()$card
-    })
-    output$profileB2Player <- renderText({
-        game2PlayerBProfile()$player
-    })
-    output$profileB2Rating <- renderText({
-        game2PlayerBProfile()$rating
-    })
-
-    output$game2SideProb <- renderPrint({
-        if (game2Stats()[4] == 1) {
-            cat("Probs. for white player (w/d/l)")
-        } else {
-            cat("Probs. for black player (w/d/l)")
-        }
-    })
-    output$game2WinProb <- renderText({
-        format(game2Stats()[1], digits=3, nsmall=3)
-    })
-    output$game2DrawProb <- renderText({
-        format(game2Stats()[2], digits=3, nsmall=3)
-    })
-    output$game2LossProb <- renderText({
-        format(game2Stats()[3], digits=3, nsmall=3)
-    })
-
-# Game 3
-
-    output$profileA3Card <- renderText({
-        game3PlayerAProfile()$card
-    })
-    output$profileA3Player <- renderText({
-        game3PlayerAProfile()$player
-    })
-    output$profileA3Rating <- renderText({
-        game3PlayerAProfile()$rating
-    })
-
-    output$profileB3Card <- renderText({
-        game3PlayerBProfile()$card
-    })
-    output$profileB3Player <- renderText({
-        game3PlayerBProfile()$player
-    })
-    output$profileB3Rating <- renderText({
-        game3PlayerBProfile()$rating
-    })
-
-    output$game3SideProb <- renderPrint({
-        if (game3Stats()[4] == 1) {
-            cat("Probs. for white player (w/d/l)")
-        } else {
-            cat("Probs. for black player (w/d/l)")
-        }
-    })
-    output$game3WinProb <- renderText({
-        format(game3Stats()[1], digits=3, nsmall=3)
-    })
-    output$game3DrawProb <- renderText({
-        format(game3Stats()[2], digits=3, nsmall=3)
-    })
-    output$game3LossProb <- renderText({
-        format(game3Stats()[3], digits=3, nsmall=3)
-    })
-
-# Game 4
-
-    output$profileA4Card <- renderText({
-        game4PlayerAProfile()$card
-    })
-    output$profileA4Player <- renderText({
-        game4PlayerAProfile()$player
-    })
-    output$profileA4Rating <- renderText({
-        game4PlayerAProfile()$rating
-    })
-
-    output$profileB4Card <- renderText({
-        game4PlayerBProfile()$card
-    })
-    output$profileB4Player <- renderText({
-        game4PlayerBProfile()$player
-    })
-    output$profileB4Rating <- renderText({
-        game4PlayerBProfile()$rating
-    })
-
-    output$game4SideProb <- renderPrint({
-        if (game4Stats()[4] == 1) {
-            cat("Probs. for white player (w/d/l)")
-        } else {
-            cat("Probs. for black player (w/d/l)")
-        }
-    })
-    output$game4WinProb <- renderText({
-        format(game4Stats()[1], digits=3, nsmall=3)
-    })
-    output$game4DrawProb <- renderText({
-        format(game4Stats()[2], digits=3, nsmall=3)
-    })
-    output$game4LossProb <- renderText({
-        format(game4Stats()[3], digits=3, nsmall=3)
-    })
+            complete_out_name <- paste(my_out_name, "SideProb", sep = "")
+            out_name_stats <- paste(my_out_name, "Stats", sep = "")
+            output[[complete_out_name]] <<- renderPrint({
+                if (get(out_name_stats)()[4] == 1) {
+                    cat("Probs. for white player (w/d/l)")
+                } else {
+                    cat("Probs. for black player (w/d/l)")
+                }
+            })
+        })
+    }
 
 # Team probs
 
