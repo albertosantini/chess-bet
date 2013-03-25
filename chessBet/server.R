@@ -182,82 +182,62 @@ shinyServer(function(input, output) {
         getTeamProbs(gamesProbs)
     })
 
-    output_names <- c(
-        "profileA1",
-        "profileB1",
-        "profileA2",
-        "profileB2",
-        "profileA3",
-        "profileB3",
-        "profileA4",
-        "profileB4"
-    )
-    reactive_names <- c(
-        "game1PlayerAProfile",
-        "game1PlayerBProfile",
-        "game2PlayerAProfile",
-        "game2PlayerBProfile",
-        "game3PlayerAProfile",
-        "game3PlayerBProfile",
-        "game4PlayerAProfile",
-        "game4PlayerBProfile"
-    )
+    output_names <- c()
+    output_names <- rbind(output_names, c("profileA1", "game1PlayerAProfile",
+        "profileB1", "game1PlayerBProfile", "game1", "game1Stats"))
+    output_names <- rbind(output_names, c("profileA2", "game2PlayerAProfile",
+        "profileB2", "game2PlayerBProfile", "game2", "game2Stats"))
+    output_names <- rbind(output_names, c("profileA3", "game3PlayerAProfile",
+        "profileB3", "game3PlayerBProfile", "game3", "game3Stats"))
+    output_names <- rbind(output_names, c("profileA4", "game4PlayerAProfile",
+        "profileB4", "game4PlayerBProfile", "game4", "game4Stats"))
 
-    for (out_name in output_names) {
+    apply(output_names, 1, function (out_name) {
         local({
-            my_out_name <- out_name
             info_names <- c("Card", "Player", "Rating")
+            my_out_name <- out_name[1]
             for (info_name in info_names) {
                 local({
                     my_info_name <- info_name
-                    complete_out_name <- paste(my_out_name, my_info_name,
-                                            sep = "")
+                    end_out_name <- paste(my_out_name, my_info_name, sep = "")
 
-                    output[[complete_out_name]] <<- renderText({
-                        my_profile <- get(reactive_names[
-                            which(output_names == my_out_name)])()
+                    output[[end_out_name]] <<- renderText({
+                        my_profile <- get(out_name[2])()
                         my_profile[[tolower(my_info_name)]]
                     })
                 })
             }
-        })
-    }
-
-    output_games <- c(
-        "game1",
-        "game2",
-        "game3",
-        "game4"
-    )
-    reactive_stats <- c(
-        "game1Stats",
-        "game2Stats",
-        "game3Stats",
-        "game4Stats"
-    )
-
-    for (out_name in output_games) {
-        local({
-            my_out_name <- out_name
-            info_names <- c("WinProb", "DrawProb", "LossProb")
+            my_out_name <- out_name[3]
             for (info_name in info_names) {
                 local({
                     my_info_name <- info_name
-                    complete_out_name <- paste(my_out_name, my_info_name,
-                                            sep = "")
+                    end_out_name <- paste(my_out_name, my_info_name, sep = "")
 
-                    output[[complete_out_name]] <<- renderText({
-                        my_probs <- get(reactive_stats[
-                            which(output_games == my_out_name)])()
+                    output[[end_out_name]] <<- renderText({
+                        my_profile <- get(out_name[4])()
+                        my_profile[[tolower(my_info_name)]]
+                    })
+                })
+            }
+
+            info_names <- c("WinProb", "DrawProb", "LossProb")
+            my_out_name <- out_name[5]
+            for (info_name in info_names) {
+                local({
+                    my_info_name <- info_name
+                    end_out_name <- paste(my_out_name, my_info_name, sep = "")
+
+                    output[[end_out_name]] <<- renderText({
+                        my_probs <- get(out_name[6])()
                         format(my_probs[which(info_names == my_info_name)],
                             digits=3, nsmall=3)
                     })
                 })
             }
 
-            complete_out_name <- paste(my_out_name, "SideProb", sep = "")
+            end_out_name <- paste(my_out_name, "SideProb", sep = "")
             out_name_stats <- paste(my_out_name, "Stats", sep = "")
-            output[[complete_out_name]] <<- renderPrint({
+            output[[end_out_name]] <<- renderPrint({
                 if (get(out_name_stats)()[4] == 1) {
                     cat("Probs. for white player (w/d/l)")
                 } else {
@@ -265,9 +245,7 @@ shinyServer(function(input, output) {
                 }
             })
         })
-    }
-
-# Team probs
+    })
 
     output$teamAWinProb <- renderText({
         format(teamProbs()[1], digits=3, nsmall=3)
