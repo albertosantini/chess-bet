@@ -24,7 +24,10 @@
         gameSideProb: 'game1SideProb',
         gameWinProb: 'game1WinProb',
         gameDrawProb: 'game1DrawProb',
-        gameLossProb: 'game1LossProb'
+        gameLossProb: 'game1LossProb',
+        gameAWinOdds: 'game1AWinOdds',
+        gameDrawOdds: 'game1DrawOdds',
+        gameBWinOdds: 'game1BWinOdds'
     }));
 
     $game2.html(gameTemplate({
@@ -41,7 +44,10 @@
         gameSideProb: 'game2SideProb',
         gameWinProb: 'game2WinProb',
         gameDrawProb: 'game2DrawProb',
-        gameLossProb: 'game2LossProb'
+        gameLossProb: 'game2LossProb',
+        gameAWinOdds: 'game2AWinOdds',
+        gameDrawOdds: 'game2DrawOdds',
+        gameBWinOdds: 'game2BWinOdds'
     }));
 
     $game3.html(gameTemplate({
@@ -58,7 +64,10 @@
         gameSideProb: 'game3SideProb',
         gameWinProb: 'game3WinProb',
         gameDrawProb: 'game3DrawProb',
-        gameLossProb: 'game3LossProb'
+        gameLossProb: 'game3LossProb',
+        gameAWinOdds: 'game3AWinOdds',
+        gameDrawOdds: 'game3DrawOdds',
+        gameBWinOdds: 'game3BWinOdds'
     }));
 
     $game4.html(gameTemplate({
@@ -75,7 +84,10 @@
         gameSideProb: 'game4SideProb',
         gameWinProb: 'game4WinProb',
         gameDrawProb: 'game4DrawProb',
-        gameLossProb: 'game4LossProb'
+        gameLossProb: 'game4LossProb',
+        gameAWinOdds: 'game4AWinOdds',
+        gameDrawOdds: 'game4DrawOdds',
+        gameBWinOdds: 'game4BWinOdds'
     }));
 
 }(jQuery, _));

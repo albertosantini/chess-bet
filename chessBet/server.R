@@ -221,15 +221,24 @@ shinyServer(function(input, output) {
             }
 
             info_names <- c("WinProb", "DrawProb", "LossProb")
+            info2_names <- c("AWinOdds", "DrawOdds", "BWinOdds")
             my_out_name <- out_name[5]
             for (info_name in info_names) {
                 local({
                     my_info_name <- info_name
                     end_out_name <- paste(my_out_name, my_info_name, sep = "")
 
+                    index <- which(info_names == my_info_name)
                     output[[end_out_name]] <<- renderText({
                         my_probs <- get(out_name[6])()
-                        format(my_probs[which(info_names == my_info_name)],
+                        format(my_probs[index], digits=3, nsmall=3)
+                    })
+
+                    my_info2_name <- info2_names[index]
+                    end_out_name <- paste(my_out_name, my_info2_name, sep = "")
+
+                    output[[end_out_name]] <<- renderText({
+                        format(100 / ( get(out_name[6])()[index] * 100),
                             digits=3, nsmall=3)
                     })
                 })
@@ -239,9 +248,9 @@ shinyServer(function(input, output) {
             out_name_stats <- paste(my_out_name, "Stats", sep = "")
             output[[end_out_name]] <<- renderPrint({
                 if (get(out_name_stats)()[4] == 1) {
-                    cat("Probs. for white player (w/d/l)")
+                    cat("Probs. and odds for white player (w/d/l)")
                 } else {
-                    cat("Probs. for black player (w/d/l)")
+                    cat("Probs. and odds for black player (w/d/l)")
                 }
             })
         })
