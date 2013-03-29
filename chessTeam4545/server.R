@@ -85,26 +85,30 @@ getPlayersStats <- function(profile1, profile2) {
     doc <- htmlParse(statsUrl)
     tableNodes = getNodeSet(doc, "//table")
 
-    table <- readHTMLTable(tableNodes[[1]])
-    n <- NROW(table)
+    if (NROW(tableNodes) > 0) {
+        table <- readHTMLTable(tableNodes[[1]])
+        n <- NROW(table)
 
-    stats <- as.character(table[n, "Total"])
-    stats <- as.numeric(strsplit(stats, " ")[[1]])
+        stats <- as.character(table[n, "Total"])
+        stats <- as.numeric(strsplit(stats, " ")[[1]])
 
-    total <- sum(stats)
-    winPerc <- stats[1] / total
-    drawPerc <- stats[2] / total
-    lossPerc <- stats[3] / total
+        total <- sum(stats)
+        winPerc <- stats[1] / total
+        drawPerc <- stats[2] / total
+        lossPerc <- stats[3] / total
 
-    if (weakerPlayerColumn == 1) {
-        score <- EloExpectedScore(playersRating[1], playersRating[2])
+        if (weakerPlayerColumn == 1) {
+            score <- EloExpectedScore(playersRating[1], playersRating[2])
+        } else {
+            score <- EloExpectedScore(playersRating[2], playersRating[1])
+        }
+
+        probs <- getProb(score, winPerc, drawPerc)
+
+        c(probs, weakerPlayerColumn)
     } else {
-        score <- EloExpectedScore(playersRating[2], playersRating[1])
+        c(NA, NA, NA, 0)
     }
-
-    probs <- getProb(score, winPerc, drawPerc)
-
-    c(probs, weakerPlayerColumn)
 }
 
 getTeamProbs <- function(gamesProbs) {
