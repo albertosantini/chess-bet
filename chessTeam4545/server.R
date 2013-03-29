@@ -88,7 +88,7 @@ getPlayersStats <- function(profile1, profile2) {
     table <- readHTMLTable(tableNodes[[1]])
     n <- NROW(table)
 
-    stats <- as.character(table[n, 12])
+    stats <- as.character(table[n, "Total"])
     stats <- as.numeric(strsplit(stats, " ")[[1]])
 
     total <- sum(stats)
@@ -157,7 +157,11 @@ shinyServer(function(input, output) {
         }
     })
     game1Stats <- reactive({
-        getPlayersStats(game1PlayerAProfile(), game1PlayerBProfile())
+        if (input$playerA1 != "" && input$playerB1 != "") {
+            getPlayersStats(game1PlayerAProfile(), game1PlayerBProfile())
+        } else {
+            c(NA, NA, NA, 0)
+        }
     })
 
     game2PlayerAProfile <- reactive ({
@@ -171,7 +175,11 @@ shinyServer(function(input, output) {
         }
     })
     game2Stats <- reactive({
-        getPlayersStats(game2PlayerAProfile(), game2PlayerBProfile())
+        if (input$playerA2 != "" && input$playerB2 != "") {
+            getPlayersStats(game2PlayerAProfile(), game2PlayerBProfile())
+        } else {
+            c(NA, NA, NA, 0)
+        }
     })
 
     game3PlayerAProfile <- reactive ({
@@ -185,7 +193,11 @@ shinyServer(function(input, output) {
         }
     })
     game3Stats <- reactive({
-        getPlayersStats(game3PlayerAProfile(), game3PlayerBProfile())
+        if (input$playerA3 != "" && input$playerB3 != "") {
+            getPlayersStats(game3PlayerAProfile(), game3PlayerBProfile())
+        } else {
+            c(NA, NA, NA, 0)
+        }
     })
 
     game4PlayerAProfile <- reactive ({
@@ -199,7 +211,11 @@ shinyServer(function(input, output) {
         }
     })
     game4Stats <- reactive({
-        getPlayersStats(game4PlayerAProfile(), game4PlayerBProfile())
+        if (input$playerA4 != "" && input$playerB4 != "") {
+            getPlayersStats(game4PlayerAProfile(), game4PlayerBProfile())
+        } else {
+            c(NA, NA, NA, 0)
+        }
     })
 
     teamProbs <- reactive({
@@ -261,16 +277,20 @@ shinyServer(function(input, output) {
 
                     index <- which(info_names == my_info_name)
                     output[[end_out_name]] <<- renderText({
-                        my_probs <- get(out_name[6])()
-                        format(my_probs[index], digits=3, nsmall=3)
+                        prob <- get(out_name[6])()[index]
+                        if (!is.na(prob)) {
+                            format(prob, digits=3, nsmall=3)
+                        }
                     })
 
                     my_info2_name <- info2_names[index]
                     end_out_name <- paste(my_out_name, my_info2_name, sep = "")
 
                     output[[end_out_name]] <<- renderText({
-                        format(100 / ( get(out_name[6])()[index] * 100),
-                            digits=3, nsmall=3)
+                        prob <- get(out_name[6])()[index]
+                        if (!is.na(prob)) {
+                            format(100 / (prob * 100), digits=3, nsmall=3)
+                        }
                     })
                 })
             }
@@ -278,10 +298,15 @@ shinyServer(function(input, output) {
             end_out_name <- paste(my_out_name, "SideProb", sep = "")
             out_name_stats <- paste(my_out_name, "Stats", sep = "")
             output[[end_out_name]] <<- renderPrint({
-                if (get(out_name_stats)()[4] == 1) {
-                    cat("Probs. and odds for white player (w/d/l)")
+                weakerPlayer <- get(out_name_stats)()[4]
+                if (weakerPlayer != 0) {
+                    if (weakerPlayer == 1) {
+                        cat("Probs. and odds for white player (w/d/l)")
+                    } else {
+                        cat("Probs. and odds for black player (w/d/l)")
+                    }
                 } else {
-                    cat("Probs. and odds for black player (w/d/l)")
+                    cat("")
                 }
             })
         })

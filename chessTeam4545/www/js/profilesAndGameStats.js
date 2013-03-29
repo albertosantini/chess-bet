@@ -12,11 +12,11 @@
 
     $game1.html(gameTemplate({
         playerA: 'playerA1',
-        playerAValue: 'IceBox',
+        playerAValue: 'RedAttack',
         profileAPlayer: 'profileA1Player',
         profileARating: 'profileA1Rating',
         playerB: 'playerB1',
-        playerBValue: 'RedAttack',
+        playerBValue: 'chess9793',
         profileBPlayer: 'profileB1Player',
         profileBRating: 'profileB1Rating',
         gameSideProb: 'game1SideProb',
@@ -30,11 +30,11 @@
 
     $game2.html(gameTemplate({
         playerA: 'playerA2',
-        playerAValue: '',
+        playerAValue: 'IceBox',
         profileAPlayer: 'profileA2Player',
         profileARating: 'profileA2Rating',
         playerB: 'playerB2',
-        playerBValue: '',
+        playerBValue: 'ben622',
         profileBPlayer: 'profileB2Player',
         profileBRating: 'profileB2Rating',
         gameSideProb: 'game2SideProb',
@@ -48,11 +48,11 @@
 
     $game3.html(gameTemplate({
         playerA: 'playerA3',
-        playerAValue: '',
+        playerAValue: 'frank001',
         profileAPlayer: 'profileA3Player',
         profileARating: 'profileA3Rating',
         playerB: 'playerB3',
-        playerBValue: '',
+        playerBValue: 'stile',
         profileBPlayer: 'profileB3Player',
         profileBRating: 'profileB3Rating',
         gameSideProb: 'game3SideProb',
@@ -66,11 +66,11 @@
 
     $game4.html(gameTemplate({
         playerA: 'playerA4',
-        playerAValue: '',
+        playerAValue: 'FlyingTiger',
         profileAPlayer: 'profileA4Player',
         profileARating: 'profileA4Rating',
         playerB: 'playerB4',
-        playerBValue: '',
+        playerBValue: 'leland',
         profileBPlayer: 'profileB4Player',
         profileBRating: 'profileB4Rating',
         gameSideProb: 'game4SideProb',
