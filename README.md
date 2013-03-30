@@ -1,8 +1,8 @@
 CHESS-BET
 =========
 
-Based on the post [Team events: beating the bookmakers?!](http://en.chessbase.com/Home/TabId/211/PostId/4009158/team-events-beating-the-bookmakers-150313.aspx)
-the app implements the steps described to calculate chess team odds.
+Based on the post [Team events: beating the bookmakers?!][1] the app implements
+the steps described to calculate chess team odds.
 
 The project contains two implementations:
 
@@ -10,13 +10,12 @@ The project contains two implementations:
 ratings.
 
 - *chessTeam4545*, implementing the approach described in the post applied to
-the [Team 4545 League](http://team4545league.org/).
+the [Team 4545 League][2].
 
 Installation
 ============
 
-To use locally the app, you need to install [R](http://www.r-project.org/) with
-the package [Shiny](http://www.rstudio.com/shiny/).
+To use locally the app, you need to install [R][3] with the package [Shiny][4].
 
 After cloning the project, with the working directory set to project folder,
 type in R console:
@@ -45,3 +44,8 @@ Todo
 - Add rating and stats games inputs to insert players not in FIDE database.
 
 - Save the latest players typed in the local storage.
+
+[1]: http://goo.gl/QN3oQ
+[2]: http://team4545league.org/
+[3]: http://www.r-project.org/
+[4]: http://www.rstudio.com/shiny/
