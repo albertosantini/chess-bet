@@ -1,5 +1,3 @@
-# http://en.chessbase.com/Home/TabId/211/PostId/4009158/team-events-beating-the-bookmakers-150313.aspx
-
 library(shiny)
 
 library(XML)
@@ -29,7 +27,7 @@ getIntegerfromFactor <- function(f) {
 getPlayerProfile <- function(player) {
     fideRatingsUrl <- "http://ratings.fide.com/search.phtml?search="
 
-    playerUrl <- paste(fideRatingsUrl, "'", player, "'", sep="")
+    playerUrl <- paste(fideRatingsUrl, player, sep="")
     tables <- readHTMLTable(playerUrl)
 
     table <- tables[[1]]
