@@ -18,14 +18,20 @@ Installation
 To use locally the app, you need to install [R][3] with the package [Shiny][4].
 
 After cloning the project, with the working directory set to project folder,
-type in R console:
+type the following commands in R console.
+
+Install the dependencies
+
+    install.packages(c("shiny", "XML", "gtools"))
+
+Then start the app chessBet
 
     require(shiny)
-
     runApp("chessBet")
 
-or
+or the app chessTeam4545
 
+    require(shiny)
     runApp("chessTeam4545")
 
 
