@@ -3,6 +3,8 @@ library(shiny)
 library(XML)
 library(gtools)
 
+options(stringsAsFactors = FALSE)
+
 EloExpectedScore <- function(rating1, rating2) {
     1 / (1 + 10 ^ ((rating2 - rating1) / 400))
 }
@@ -17,13 +19,6 @@ getProb <- function(score, winPerc, drawPerc) {
     c(win, draw, loss)
 }
 
-getIntegerfromFactor <- function(f) {
-    pattern <- "[0-9]+"
-
-    n <- unclass(levels(f)[unclass(f)])
-    as.numeric(regmatches(n, regexpr(pattern, n)))
-}
-
 getPlayerProfile <- function(player) {
     fideRatingsUrl <- "http://ratings.fide.com/search.phtml?search="
 
@@ -31,14 +26,14 @@ getPlayerProfile <- function(player) {
     tables <- readHTMLTable(playerUrl)
 
     table <- tables[[1]]
-    card <- getIntegerfromFactor(table[6, 1])
-    player <- as.character(table[6, 2])
-    rating <- getIntegerfromFactor(table[6, 7])
+    card <- as.numeric(gsub("([^0-9]+)", "", table[7, 1]))
+    player <- gsub("(^ +)|( +$)", "", table[7, 2])
+    rating <- as.numeric(gsub("([^0-9]+)", "", table[7, 7]))
 
     profile <- list(
-      card=card,
-      player=player,
-      rating=rating
+        card=card,
+        player=player,
+        rating=rating
     )
 
     profile
@@ -58,14 +53,14 @@ getPlayersStats <- function(card1, card2) {
     tableNodes = getNodeSet(doc, "//table")
 
     table <- readHTMLTable(tableNodes[[6]])
-    whiteWin <- getIntegerfromFactor(table[2, ])
-    whiteDraw <- getIntegerfromFactor(table[3, ])
-    whiteLoss <- getIntegerfromFactor(table[4, ])
+    whiteWin <- as.numeric(gsub("([^0-9]+)", "", table[2, ]))
+    whiteDraw <- as.numeric(gsub("([^0-9]+)", "", table[3, ]))
+    whiteLoss <- as.numeric(gsub("([^0-9]+)", "", table[4, ]))
 
     table <- readHTMLTable(tableNodes[[7]])
-    blackWin <- getIntegerfromFactor(table[2, ])
-    blackDraw <- getIntegerfromFactor(table[3, ])
-    blackLoss <- getIntegerfromFactor(table[4, ])
+    blackWin <- as.numeric(gsub("([^0-9]+)", "", table[2, ]))
+    blackDraw <- as.numeric(gsub("([^0-9]+)", "", table[3, ]))
+    blackLoss <- as.numeric(gsub("([^0-9]+)", "", table[4, ]))
 
     whiteTotal <- whiteWin + whiteDraw + whiteLoss
     blackTotal <- blackWin + blackDraw + blackLoss
