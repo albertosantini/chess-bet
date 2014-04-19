@@ -28,7 +28,8 @@ getPlayerProfile <- function(player) {
     table <- tables[[1]]
     card <- as.numeric(gsub("([^0-9]+)", "", table[7, 1]))
     player <- gsub("(^ +)|( +$)", "", table[7, 2])
-    rating <- as.numeric(gsub("([^0-9]+)", "", table[7, 7]))
+    m <- regexec("[0-9]+", table[7, 7])
+    rating <- as.numeric(regmatches(table[7, 7], m))
 
     profile <- list(
         card=card,
