@@ -34,14 +34,6 @@ or the app chessTeam4545
     require(shiny)
     runApp("chessTeam4545")
 
-
-Live
-====
-
-- http://glimmer.rstudio.com/icebox/chessBet/
-
-- http://glimmer.rstudio.com/icebox/chessTeam4545/
-
 Todo
 ====
 
