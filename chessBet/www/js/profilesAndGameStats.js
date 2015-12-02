@@ -1,7 +1,6 @@
-/* global jQuery, _ */
+"use strict";
 
 (function ($, _) {
-    "use strict";
 
     var gameRawTemplate = $("#profiles-and-game-probs").text(),
         gameTemplate = _.template(gameRawTemplate),
